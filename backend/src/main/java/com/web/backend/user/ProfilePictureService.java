@@ -8,13 +8,14 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class ProfilePictureUploadService {
+public class ProfilePictureService {
     private final Environment environment;
 
 
@@ -48,4 +49,8 @@ public class ProfilePictureUploadService {
         return newFileName;
     }
 
+    public void deleteFile(String fileName) {
+        File file = new File(fileName);
+        file.delete();
+    }
 }
