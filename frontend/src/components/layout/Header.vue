@@ -16,6 +16,9 @@
             <!-- if cannot access -> disabled -->
             <b-nav-item href="#">All Projects</b-nav-item>
             <b-nav-item href="#">My Schedule</b-nav-item>
+            <b-nav-item @click="signModalView=true" v-b-modal.modal-Sign>Sign</b-nav-item>
+            <SignModal v-if="signModalView" @close-modal="signModalView = false">
+            </SignModal>
           </b-navbar-nav>
 
           <b-nav-item-dropdown right>
@@ -33,7 +36,17 @@
 </template>
 
 <script>
+import SignModal from "../Sign.vue"
+
 export default {
-  name:"Header"
+  name:"Header",
+  components: {
+    SignModal
+  },
+  data() {
+    return {
+      signModalView:false
+    }
+  }
 }
 </script>
