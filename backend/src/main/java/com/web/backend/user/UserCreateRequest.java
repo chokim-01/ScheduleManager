@@ -1,5 +1,6 @@
 package com.web.backend.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.lang.Nullable;
@@ -9,6 +10,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @ToString
+@AllArgsConstructor
 public class UserCreateRequest {
 
     @NotBlank
