@@ -8,14 +8,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.transaction.Transactional;
+
 import javax.validation.Valid;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class UserService implements UserDetailsService {
     private final MailSender mailSender;
     private final UserRepository userRepository;
@@ -29,6 +30,7 @@ public class UserService implements UserDetailsService {
     }
 
 
+    @Transactional
     public User createUser(@Valid UserCreateRequest request){
         User user = User.builder()
                 .userId(request.getUserId())
@@ -38,7 +40,7 @@ public class UserService implements UserDetailsService {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject("회원 가입 인증");
-        message.setText("/user/check-email-auth/"+ user.getAuthenticationKey());
+        message.setText("/check-email-auth/"+ user.getAuthenticationKey());
 
 //        mailSender.send(message);
 
@@ -74,6 +76,24 @@ public class UserService implements UserDetailsService {
         if (request.getPlainPassword()!=null){
             user.setEncryptedPassword(passwordEncoder.encode(request.getPlainPassword()));
         }
+
+    }
+
+    @Transactional
+    public void deleteUser(Long id){
+        userRepository.deleteById(id);
+    }
+
+    public UserInfo showUserInfo(Long id){
+        User user = userRepository.findById(id).orElseThrow(()->new IllegalArgumentException("user not exist"));
+        UserInfo userInfo = UserInfo.builder()
+                .id(user.getId())
+                .userId(user.getUserId())
+                .profilePicture(user.getProfilePicture())
+                .email(user.getEmail())
+                .signedAt(user.getSignedAt())
+                .build();
+        return userInfo;
 
     }
 }
