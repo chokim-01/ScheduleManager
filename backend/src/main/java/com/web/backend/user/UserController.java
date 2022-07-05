@@ -32,7 +32,7 @@ public class UserController {
     }
 
     @GetMapping("/check-email-auth/{key}")
-    public ResponseEntity<String> authorizationUser(String key) {
+    public ResponseEntity<String> authorizationUser(@PathVariable String key) {
         userService.authorizationUser(key);
         return ResponseEntity.ok().build();
     }

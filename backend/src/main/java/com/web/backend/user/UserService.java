@@ -1,5 +1,6 @@
 package com.web.backend.user;
 
+import com.web.backend.logger.Trace;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -41,14 +42,16 @@ public class UserService implements UserDetailsService {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setSubject("회원 가입 인증");
         message.setText("/check-email-auth/"+ user.getAuthenticationKey());
+        message.setTo(request.getEmail());
 
-//        mailSender.send(message);
+        mailSender.send(message);
 
         return userRepository.save(user);
     }
 
 
     @Transactional
+    @Trace
     public void authorizationUser(String key) {
         User user = userRepository.findByAuthenticationKey(key).orElseThrow(() -> new IllegalArgumentException("invalid key"));
         user.authorization();
