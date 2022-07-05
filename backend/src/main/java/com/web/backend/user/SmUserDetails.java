@@ -13,7 +13,7 @@ public class SmUserDetails extends User {
 
 
     public SmUserDetails(com.web.backend.user.User user) {
-        super(user.getEmail(), user.getEncryptedPassword(), Collections.emptyList());
+        super(user.getUserId(), user.getEncryptedPassword(), Collections.emptyList());
         this.user = user;
     }
 }
