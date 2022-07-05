@@ -1,24 +1,26 @@
 <template>
   <div>
-    <b-modal id="modal-Sign" centered hide-header="true" hide-footer="true">
+    <b-modal id="modal-Sign" centered hide-header hide-footer>
       <b-tabs content-class="mt-3" justified>
         <!-- Sign In Section -->
         <b-tab title="Sign In" active>
           <form>
             <div class="form-group">
               <label>ID</label>
-              <input type="email" class="form-control form-control-lg" />
+              <input type="text" class="form-control form-control-lg"/>
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" class="form-control form-control-lg" />
+              <input type="password" class="form-control form-control-lg"/>
             </div>
             <button type="submit" class="btn btn-dark btn-lg btn-block">Sign In</button>
             <p class="forgot-password text-right mt-2 mb-4">
-              <router-link to="/forgot-password">Forgot password ?</router-link>
+              <router-link to="/forgotPasswd" @click.native="hideModal()">Forgot password ?</router-link>
             </p>
           </form>
+
         </b-tab>
+
         <!-- Sign Up Section -->
         <b-tab title="Sign Up">
           <form>
@@ -32,11 +34,11 @@
             </div>
             <div class="form-group">
               <label>Email address</label>
-              <input type="email" class="form-control form-control-lg" />
+              <input type="email" class="form-control form-control-lg"/>
             </div>
             <div class="form-group">
               <label>Password</label>
-              <input type="password" class="form-control form-control-lg" />
+              <input type="password" class="form-control form-control-lg"/>
             </div>
             <button type="submit" class="btn btn-dark btn-lg btn-block">Sign Up</button>
           </form>
@@ -47,6 +49,11 @@
 </template>
 <script>
 export default {
-  name:"SignIn"
+  name: "SignIn",
+  methods: {
+    hideModal() {
+      this.$root.$emit('bv::hide::modal', 'modal-Sign', '#btnShow')
+    }
+  }
 }
 </script>
