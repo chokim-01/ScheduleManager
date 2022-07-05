@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,6 +22,8 @@ public class User {
     @GeneratedValue
     private Long id;
     @Column(unique = true, length = 50)
+    private String userId;
+    @Column(unique = true, length = 50)
     private String email;
     @Column(unique = true, length = 50)
     private String nickname;
@@ -28,24 +31,30 @@ public class User {
     private String encryptedPassword;
     private String profilePicture;
 
+    @CreatedDate
     private LocalDateTime signedAt;
     private boolean isCertificated;
     private String authenticationKey;
 
     @Builder
-    public User(String email, String nickname, String encryptedPassword, String profilePicture) {
+    public User(String userId, String email, String nickname, String encryptedPassword) {
+        this.userId = userId;
         this.email = email;
         this.nickname = nickname;
         this.encryptedPassword = encryptedPassword;
-        this.profilePicture = profilePicture;
-        this.isCertificated = false;
         changeAuthenticationKey();
     }
+
+
+
+
     private void changeAuthenticationKey(){
         this.authenticationKey = UUID.randomUUID().toString();
     }
-    private void certificateUser(){
+
+    protected void authorization(){
         this.isCertificated = true;
+        this.authenticationKey = null;
     }
 
     public void setEmail(String email) {
