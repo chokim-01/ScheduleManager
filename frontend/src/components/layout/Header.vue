@@ -26,7 +26,9 @@
             <template #button-content>
               <em>~님</em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item to="/profile">
+              profile
+            </b-dropdown-item>
             <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -39,13 +41,13 @@
 import SignModal from "../Sign.vue"
 
 export default {
-  name:"Header",
+  name: "Header",
   components: {
     SignModal
   },
   data() {
     return {
-      signModalView:false
+      signModalView: false
     }
   }
 }
