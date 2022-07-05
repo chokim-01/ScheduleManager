@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -35,6 +36,29 @@ public class UserController {
         userService.authorizationUser(key);
         return ResponseEntity.ok().build();
     }
+
+    @PatchMapping("/user/{id}/picture")
+    public ResponseEntity<String> changeUserProfilePicture(@RequestBody MultipartFile file,@PathVariable Long id,@CurrentUser User user){
+        if (!user.getId().equals(id)){
+            throw new RuntimeException("");
+        }
+        userService.changeUserProfilePicture(file, id);
+
+        return ResponseEntity.ok().build();
+    }
+    @PatchMapping("/user/{id}/info")
+    @Trace
+    public ResponseEntity<String> changeUserInfo(@RequestBody UserUpdateRequest request, @PathVariable Long id, @CurrentUser User user){
+        if (!user.getId().equals(id)){
+            throw new RuntimeException("");
+        }
+        userService.changeUserInfo(request, id);
+
+        return ResponseEntity.ok().build();
+    }
+
+
+
 
 
 

@@ -57,9 +57,6 @@ public class User {
         this.authenticationKey = null;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
