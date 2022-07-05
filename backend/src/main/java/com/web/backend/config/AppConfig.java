@@ -8,12 +8,11 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Properties;
+
 @Configuration
 public class AppConfig {
-    @Bean
-    public MailSender mailSender(){
-        return new JavaMailSenderImpl();
-    }
+
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
