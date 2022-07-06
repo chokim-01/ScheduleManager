@@ -11,7 +11,7 @@
 
 <script>
 
-import ProfileSidebar from "@/components/layout/ProfileSidebar";
+import ProfileSidebar from "../components/layout/ProfileSidebar.vue";
 
 export default {
   name: "ProfileOverview",
