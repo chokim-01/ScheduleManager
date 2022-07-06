@@ -1,12 +1,16 @@
 package com.web.backend.project;
 
 
+import com.web.backend.logger.Trace;
 import com.web.backend.user.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,6 +21,7 @@ public class ProjectService {
     private final ProjectParticipantRepository participantRepository;
 
 
+    @Trace
     public ProjectDto createProject(ProjectCreateRequest request, User user) {
         Project project = Project.builder()
                 .name(request.getName())
@@ -30,7 +35,7 @@ public class ProjectService {
 
         addUserToProjectManager(saved, user);
         ProjectDto projectDto = saved.toDto();
-        projectDto.getManagers().add(user.toDto());
+        projectDto.setManagers(Collections.singletonList(user.toDto()));
 
         return projectDto;
     }
@@ -51,7 +56,8 @@ public class ProjectService {
         updateProjectFromRequest(project, request);
 
     }
-    private void updateProjectFromRequest(Project project, ProjectUpdateRequest request){
+
+    private void updateProjectFromRequest(Project project, ProjectUpdateRequest request) {
         if (request.getName() != null) {
             project.setName(request.getName());
         }
@@ -81,9 +87,10 @@ public class ProjectService {
     }
 
 
-    private boolean isUserNotProjectManager(User user, Project project){
+    private boolean isUserNotProjectManager(User user, Project project) {
         return !isUserProjectManager(user, project);
     }
+
     private boolean isUserProjectManager(User user, Project project) {
         return participantRepository.isUserProjectManager(user, project);
     }
@@ -97,14 +104,23 @@ public class ProjectService {
         }
 
         ProjectDto projectDto = project.toDto();
-        projectDto.setManagers(participantRepository.findManagers(project).stream().map(User::toDto).collect(Collectors.toList()));
-        projectDto.setParticipants(participantRepository.findParticipants(project).stream().map(User::toDto).collect(Collectors.toList()));
+        projectDto.setManagers(findManagers(project).stream().map(User::toDto).collect(Collectors.toList()));
+        projectDto.setParticipants(findParticipants(project).stream().map(User::toDto).collect(Collectors.toList()));
 
         return projectDto;
     }
 
+    private List<User> findParticipants(Project project) {
+        return participantRepository.findParticipantsByRole(project, ProjectParticipant.Role.PARTICIPANT);
+    }
+
+    private List<User> findManagers(Project project) {
+        return participantRepository.findParticipantsByRole(project, ProjectParticipant.Role.MANAGER);
+    }
+
+
     private boolean userCanNotAccessProject(User user, Project project) {
-        return participantRepository.existsByUserAndProject(user,project)&&project.isPublicOption();
+        return participantRepository.existsByUserAndProject(user, project) && project.isPublicOption();
     }
 
 

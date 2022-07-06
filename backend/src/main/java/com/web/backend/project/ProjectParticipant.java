@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class ProjectParticipant {
     enum Role{
         MANAGER, PARTICIPANT
+
     }
 
     @Id
@@ -37,5 +38,6 @@ public class ProjectParticipant {
         this.project = project;
         this.user = user;
         this.role = role;
+
     }
 }

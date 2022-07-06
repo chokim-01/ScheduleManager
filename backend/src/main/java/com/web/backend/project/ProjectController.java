@@ -1,5 +1,6 @@
 package com.web.backend.project;
 
+import com.web.backend.logger.Trace;
 import com.web.backend.user.CurrentUser;
 import com.web.backend.user.User;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class ProjectController {
     }
 
     @PostMapping("/project")
+    @Trace
     public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectCreateRequest request, @CurrentUser User user){
 
         ProjectDto projectDto = projectService.createProject(request, user);

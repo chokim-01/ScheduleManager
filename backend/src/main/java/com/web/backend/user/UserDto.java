@@ -1,12 +1,14 @@
 package com.web.backend.user;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 
 @ToString
+@Getter
 public class UserDto {
     private Long id;
     private String userId;

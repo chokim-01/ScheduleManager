@@ -1,7 +1,9 @@
 package com.web.backend.project;
 
 
-import com.web.backend.user.User;
+
+
+
 import com.web.backend.user.UserDto;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +21,10 @@ public class ProjectDto {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private boolean publicOption;
-    private List<UserDto> managers= new ArrayList<>();
-    private List<UserDto> participants = new ArrayList<>();
+
+    private List<UserDto> managers;
+
+    private List<UserDto> participants;
 
     @Builder
     public ProjectDto(Long id, String name, String description, LocalDateTime startTime, LocalDateTime endTime, Boolean publicOption) {
