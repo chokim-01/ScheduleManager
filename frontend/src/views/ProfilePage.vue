@@ -1,21 +1,26 @@
 <template>
   <div>
-    <VueSidebarMenuAkahon />
   </div>
 </template>
 
 <script>
 
-import VueSidebarMenuAkahon from "vue-sidebar-menu-akahon";
-
 export default {
   name: "ProfilePage",
+  data() {
+    return {
+      config: [
+        {menuTitle: "123"},
+        {profileName: "jaegon"}
+      ]
+    }
+  },
   components: {
-    VueSidebarMenuAkahon
   }
 }
 </script>
 
 <style scoped>
-
+.sidebar {
+}
 </style>

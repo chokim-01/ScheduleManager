@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id = "header">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="/">SManager</b-navbar-brand>
 
@@ -52,3 +52,9 @@ export default {
   }
 }
 </script>
+
+<style>
+#header {
+  margin-top: 50px;
+}
+</style>
