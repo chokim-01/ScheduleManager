@@ -5,7 +5,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 @Getter
 public class ProjectUpdateRequest {
-    private Long id;
+
     private String name;
     private String description;
     private LocalDateTime startTime;

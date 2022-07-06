@@ -29,8 +29,10 @@ public class ProjectService {
         Project saved = projectRepository.save(project);
 
         addUserToProjectManager(saved, user);
+        ProjectDto projectDto = saved.toDto();
+        projectDto.getManagers().add(user.toDto());
 
-        return saved.toDto();
+        return projectDto;
     }
 
     private void addUserToProjectManager(Project project, User user) {
@@ -38,14 +40,18 @@ public class ProjectService {
 
     }
 
-    public void updateProject(ProjectUpdateRequest request, User user) {
-        Project project = projectRepository.findById(request.getId())
+    public void updateProject(Long id, ProjectUpdateRequest request, User user) {
+        Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("project not exist"));
 
-        if (!isUserProjectManager(user, project)) {
+        if (isUserNotProjectManager(user, project)) {
             throw new AccessDeniedException("user has no authority");
         }
 
+        updateProjectFromRequest(project, request);
+
+    }
+    private void updateProjectFromRequest(Project project, ProjectUpdateRequest request){
         if (request.getName() != null) {
             project.setName(request.getName());
         }
@@ -61,7 +67,6 @@ public class ProjectService {
         if (request.getStartTime() != null) {
             project.setEndTime(request.getEndTime());
         }
-
     }
 
     public void deleteProject(Long id, User user) {
@@ -83,15 +88,23 @@ public class ProjectService {
         return participantRepository.isUserProjectManager(user, project);
     }
 
-    public ProjectDto showProjectDetail(Long id) {
+    public ProjectDto showProjectDetail(Long id, User user) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("project not exist"));
+
+        if (userCanNotAccessProject(user, project)){
+            throw new AccessDeniedException("user has no authority");
+        }
 
         ProjectDto projectDto = project.toDto();
         projectDto.setManagers(participantRepository.findManagers(project).stream().map(User::toDto).collect(Collectors.toList()));
         projectDto.setParticipants(participantRepository.findParticipants(project).stream().map(User::toDto).collect(Collectors.toList()));
 
         return projectDto;
+    }
+
+    private boolean userCanNotAccessProject(User user, Project project) {
+        return participantRepository.existsByUserAndProject(user,project)&&project.isPublicOption();
     }
 
 

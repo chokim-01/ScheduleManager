@@ -14,7 +14,7 @@ public interface ProjectParticipantRepository extends JpaRepository<ProjectParti
     boolean existsByProjectIdAndUserId(Long projectId, Long userId);
 
 
-    boolean existsByProjectAndUser(Project project, User user);
+    boolean existsByUserAndProject(User user, Project project);
 
     @Query("select p.user from ProjectParticipant p where :project = p.project and p.Role.PARTICIPANT = p.role")
     List<User> findParticipants(Project project);
