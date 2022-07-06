@@ -22,7 +22,6 @@
               <b-dropdown-item> item 2</b-dropdown-item>
             </b-nav-item-dropdown>
 
-            <b-nav-item href="#"><i class="bi bi-bell"></i></b-nav-item>
             <b-nav-item href="#">All Projects</b-nav-item>
             <b-nav-item href="#">My Schedule</b-nav-item>
             <b-nav-item @click="signModalView=true" v-b-modal.modal-Sign>Sign</b-nav-item>
@@ -35,7 +34,7 @@
             <template #button-content>
               <em>~님</em>
             </template>
-            <b-dropdown-item to="/profile">
+            <b-dropdown-item to="/profile/overview">
               profile
             </b-dropdown-item>
             <b-dropdown-item href="#">Sign Out</b-dropdown-item>
