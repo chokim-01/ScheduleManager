@@ -87,16 +87,15 @@ public class UserService implements UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    public UserInfo showUserInfo(Long id){
+    public UserDto showUserInfo(Long id){
         User user = userRepository.findById(id).orElseThrow(()->new IllegalArgumentException("user not exist"));
-        UserInfo userInfo = UserInfo.builder()
+        return UserDto.builder()
                 .id(user.getId())
                 .userId(user.getUserId())
                 .profilePicture(user.getProfilePicture())
                 .email(user.getEmail())
                 .signedAt(user.getSignedAt())
                 .build();
-        return userInfo;
 
     }
 }

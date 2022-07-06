@@ -67,9 +67,9 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
     @GetMapping("/user/{id}")
-    public ResponseEntity<UserInfo> showUserInfo(@PathVariable Long id){
-        UserInfo userInfo = userService.showUserInfo(id);
-        return ResponseEntity.ok().body(userInfo);
+    public ResponseEntity<UserDto> showUserInfo(@PathVariable Long id){
+        UserDto userDto = userService.showUserInfo(id);
+        return ResponseEntity.ok().body(userDto);
     }
 
 

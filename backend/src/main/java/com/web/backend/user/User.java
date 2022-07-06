@@ -70,4 +70,15 @@ public class User {
     public void setProfilePicture(String profilePicture) {
         this.profilePicture = profilePicture;
     }
+
+    public UserDto toDto(){
+        return UserDto.builder()
+                .id(id)
+                .email(email)
+                .userId(userId)
+                .nickname(nickname)
+                .profilePicture(profilePicture)
+                .signedAt(signedAt)
+                .build();
+    }
 }
