@@ -1,14 +1,15 @@
 package com.web.backend.user;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 
 @ToString
-public class UserInfo {
+@Getter
+public class UserDto {
     private Long id;
     private String userId;
     private String email;
@@ -16,7 +17,7 @@ public class UserInfo {
     private String profilePicture;
     private LocalDateTime signedAt;
     @Builder
-    public UserInfo(Long id, String userId, String email, String nickname, String profilePicture, LocalDateTime signedAt) {
+    public UserDto(Long id, String userId, String email, String nickname, String profilePicture, LocalDateTime signedAt) {
         this.id = id;
         this.userId = userId;
         this.email = email;
