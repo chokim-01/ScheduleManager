@@ -1,5 +1,5 @@
 <template>
-  <div id = "header">
+  <div id="header">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="/">SManager</b-navbar-brand>
 
@@ -9,11 +9,20 @@
         <b-navbar-nav>
           <b-nav-item href="#" disabled>Admin</b-nav-item>
         </b-navbar-nav>
-
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
             <!-- if cannot access -> disabled -->
+
+            <b-nav-item-dropdown right>
+              <template #button-content>
+                <b-icon icon="bell"></b-icon>
+              </template>
+              <b-dropdown-item> item 1</b-dropdown-item>
+              <b-dropdown-item> item 2</b-dropdown-item>
+            </b-nav-item-dropdown>
+
+            <b-nav-item href="#"><i class="bi bi-bell"></i></b-nav-item>
             <b-nav-item href="#">All Projects</b-nav-item>
             <b-nav-item href="#">My Schedule</b-nav-item>
             <b-nav-item @click="signModalView=true" v-b-modal.modal-Sign>Sign</b-nav-item>
@@ -38,6 +47,7 @@
 </template>
 
 <script>
+
 import SignModal from "../Sign.vue"
 
 export default {
@@ -54,7 +64,4 @@ export default {
 </script>
 
 <style>
-#header {
-  margin-top: 50px;
-}
 </style>
