@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="header">
     <b-navbar toggleable="lg" type="dark" variant="info">
       <b-navbar-brand href="/">SManager</b-navbar-brand>
 
@@ -9,11 +9,19 @@
         <b-navbar-nav>
           <b-nav-item href="#" disabled>Admin</b-nav-item>
         </b-navbar-nav>
-
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-navbar-nav>
             <!-- if cannot access -> disabled -->
+
+            <b-nav-item-dropdown right>
+              <template #button-content>
+                <b-icon icon="bell"></b-icon>
+              </template>
+              <b-dropdown-item> item 1</b-dropdown-item>
+              <b-dropdown-item> item 2</b-dropdown-item>
+            </b-nav-item-dropdown>
+
             <b-nav-item href="#">All Projects</b-nav-item>
             <b-nav-item href="#">My Schedule</b-nav-item>
             <b-nav-item @click="signModalView=true" v-b-modal.modal-Sign>Sign</b-nav-item>
@@ -26,7 +34,9 @@
             <template #button-content>
               <em>~님</em>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-item to="/profile/overview">
+              profile
+            </b-dropdown-item>
             <b-dropdown-item href="#">Sign Out</b-dropdown-item>
           </b-nav-item-dropdown>
         </b-navbar-nav>
@@ -36,17 +46,21 @@
 </template>
 
 <script>
+
 import SignModal from "../Sign.vue"
 
 export default {
-  name:"Header",
+  name: "Header",
   components: {
     SignModal
   },
   data() {
     return {
-      signModalView:false
+      signModalView: false
     }
   }
 }
 </script>
+
+<style>
+</style>
