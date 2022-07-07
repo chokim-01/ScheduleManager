@@ -81,7 +81,7 @@ class TodoServiceTest {
 
         when(todoRepository.findById(any())).thenReturn(Optional.ofNullable(todo));
 
-        TodoDto updateDto = todoService.updateTodo(request, user);
+        TodoDto updateDto = todoService.updateTodo(1L, request, user);
 
         assertThat(updateDto.getTitle()).isEqualTo(request.getTitle());
         assertThat(updateDto.getContent()).isEqualTo(request.getContent());

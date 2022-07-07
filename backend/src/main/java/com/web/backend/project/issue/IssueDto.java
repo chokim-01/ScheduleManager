@@ -1,5 +1,6 @@
 package com.web.backend.project.issue;
 
+import com.web.backend.user.User;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,7 +10,7 @@ import lombok.Setter;
 public class IssueDto {
 
     private Long id;
-    private Long userId;
+    private User user;
     private Long projectId;
     private Long todoId;
     private String title;
