@@ -35,8 +35,8 @@ public class TodoService {
         return !participantRepository.existsByProjectIdAndUserId(projectId, user.getId());
     }
 
-    public TodoDto updateTodo(@NotNull TodoUpdateRequest request, User user){
-        Todo todo = todoRepository.findById(request.getId()).orElseThrow(IllegalArgumentException::new);
+    public TodoDto updateTodo(Long id, TodoUpdateRequest request, User user){
+        Todo todo = todoRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
         if (canNotChangeTodo(todo, user)){
             throw new RuntimeException();

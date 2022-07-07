@@ -28,6 +28,7 @@ public class ProjectService {
                 .description(request.getName())
                 .description(request.getDescription())
                 .startTime(request.getStartTime())
+                .publicOption(request.isPublicOption())
                 .endTime(request.getEndTime()).build();
 
 
@@ -45,7 +46,7 @@ public class ProjectService {
 
     }
 
-    public void updateProject(Long id, ProjectUpdateRequest request, User user) {
+    public ProjectDto updateProject(Long id, ProjectUpdateRequest request, User user) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("project not exist"));
 
@@ -55,6 +56,7 @@ public class ProjectService {
 
         updateProjectFromRequest(project, request);
 
+        return project.toDto();
     }
 
     private void updateProjectFromRequest(Project project, ProjectUpdateRequest request) {
