@@ -14,7 +14,7 @@ public class TodoService {
     private final TodoRepository todoRepository;
     private final ProjectParticipantRepository participantRepository;
 
-    public TodoDto createTodo(@NotNull CreateTodoRequest request, User user) {
+    public TodoDto createTodo(CreateTodoRequest request, User user) {
         if(canNotCreateTodo(request.getProjectId(), user)){
             throw new RuntimeException();
         }
