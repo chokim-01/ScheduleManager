@@ -1,7 +1,9 @@
 package com.web.backend.project.todo;
 
+import com.web.backend.project.ProjectParticipantRepository;
 import com.web.backend.user.User;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,12 +12,18 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class TodoService {
     private final TodoRepository todoRepository;
+    private final ProjectParticipantRepository participantRepository;
 
-    public TodoDto createTodo(CreateTodoRequest request, Long projectId, User user) {
+    public TodoDto createTodo(@NotNull CreateTodoRequest request, User user) {
+        if(canNotCreateTodo(request.getProjectId(), user)){
+            throw new RuntimeException();
+        }
+
         Todo todo = Todo.builder().content(request.getContent())
                 .title(request.getTitle())
                 .status(request.getStatus())
                 .time(request.getTime())
+                .user(user)
                 .projectId(request.getProjectId()).build();
 
         Todo save = todoRepository.save(todo);
@@ -23,8 +31,12 @@ public class TodoService {
         return save.toDto();
     }
 
-    public void updateTodo(Long id , TodoUpdateRequest request, User user){
-        Todo todo = todoRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    private boolean canNotCreateTodo(Long projectId, User user) {
+        return !participantRepository.existsByProjectIdAndUserId(projectId, user.getId());
+    }
+
+    public TodoDto updateTodo(@NotNull TodoUpdateRequest request, User user){
+        Todo todo = todoRepository.findById(request.getId()).orElseThrow(IllegalArgumentException::new);
 
         if (canNotChangeTodo(todo, user)){
             throw new RuntimeException();
@@ -32,6 +44,7 @@ public class TodoService {
 
         updateEachFieldIfNotNull(request, todo);
 
+        return todo.toDto();
     }
 
     private boolean canNotChangeTodo(Todo todo, User user) {
@@ -68,5 +81,6 @@ public class TodoService {
     private boolean canNotDeleteTodo(Todo todo, User user) {
         return !todo.getUser().getId().equals(user.getId());
     }
+
 
 }

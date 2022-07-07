@@ -69,11 +69,13 @@ public class Todo{
 
     protected TodoDto toDto(){
         TodoDto todoDto = new TodoDto();
+        todoDto.setTitle(title);
         todoDto.setId(id);
         todoDto.setContent(content);
         todoDto.setProjectId(projectId);
         todoDto.setUser(user);
         todoDto.setTime(time);
+        todoDto.setStatus(status);
         return todoDto;
     }
 

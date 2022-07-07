@@ -1,11 +1,13 @@
 package com.web.backend.project.todo;
 
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Getter
+@Data
 public class CreateTodoRequest {
     private Long projectId;
     private String title;
