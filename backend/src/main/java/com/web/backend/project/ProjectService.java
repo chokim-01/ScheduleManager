@@ -104,18 +104,10 @@ public class ProjectService {
         }
 
         ProjectDto projectDto = project.toDto();
-        projectDto.setManagers(findManagers(project).stream().map(User::toDto).collect(Collectors.toList()));
-        projectDto.setParticipants(findParticipants(project).stream().map(User::toDto).collect(Collectors.toList()));
+        projectDto.setManagers(participantRepository.findManagers(project).stream().map(User::toDto).collect(Collectors.toList()));
+        projectDto.setParticipants(participantRepository.findParticipants(project).stream().map(User::toDto).collect(Collectors.toList()));
 
         return projectDto;
-    }
-
-    private List<User> findParticipants(Project project) {
-        return participantRepository.findParticipantsByRole(project, ProjectParticipant.Role.PARTICIPANT);
-    }
-
-    private List<User> findManagers(Project project) {
-        return participantRepository.findParticipantsByRole(project, ProjectParticipant.Role.MANAGER);
     }
 
 
