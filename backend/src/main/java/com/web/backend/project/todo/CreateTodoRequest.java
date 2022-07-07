@@ -1,15 +1,15 @@
 package com.web.backend.project.todo;
 
-import com.web.backend.user.User;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 import java.time.LocalDateTime;
-@Data
-public class TodoDto {
 
-    private Long id;
+@Data
+public class CreateTodoRequest {
     private Long projectId;
-    private User user;
     private String title;
     private String content;
     private LocalDateTime time;

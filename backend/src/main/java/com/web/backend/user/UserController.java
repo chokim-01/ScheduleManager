@@ -1,6 +1,9 @@
 package com.web.backend.user;
 
 import com.web.backend.logger.Trace;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.WebDataBinder;
@@ -46,6 +49,7 @@ public class UserController {
 
         return ResponseEntity.ok().build();
     }
+
 
     @PatchMapping("/user/{id}/info")
     @Trace

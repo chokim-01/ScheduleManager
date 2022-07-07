@@ -1,9 +1,10 @@
 package com.web.backend.project;
 
+import lombok.Data;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
-@Getter
+@Data
 public class ProjectUpdateRequest {
 
     private String name;

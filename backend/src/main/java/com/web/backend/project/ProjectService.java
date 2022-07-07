@@ -28,6 +28,7 @@ public class ProjectService {
                 .description(request.getName())
                 .description(request.getDescription())
                 .startTime(request.getStartTime())
+                .publicOption(request.isPublicOption())
                 .endTime(request.getEndTime()).build();
 
 
@@ -45,7 +46,7 @@ public class ProjectService {
 
     }
 
-    public void updateProject(Long id, ProjectUpdateRequest request, User user) {
+    public ProjectDto updateProject(Long id, ProjectUpdateRequest request, User user) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("project not exist"));
 
@@ -55,6 +56,7 @@ public class ProjectService {
 
         updateProjectFromRequest(project, request);
 
+        return project.toDto();
     }
 
     private void updateProjectFromRequest(Project project, ProjectUpdateRequest request) {
@@ -104,18 +106,10 @@ public class ProjectService {
         }
 
         ProjectDto projectDto = project.toDto();
-        projectDto.setManagers(findManagers(project).stream().map(User::toDto).collect(Collectors.toList()));
-        projectDto.setParticipants(findParticipants(project).stream().map(User::toDto).collect(Collectors.toList()));
+        projectDto.setManagers(participantRepository.findManagers(project).stream().map(User::toDto).collect(Collectors.toList()));
+        projectDto.setParticipants(participantRepository.findParticipants(project).stream().map(User::toDto).collect(Collectors.toList()));
 
         return projectDto;
-    }
-
-    private List<User> findParticipants(Project project) {
-        return participantRepository.findParticipantsByRole(project, ProjectParticipant.Role.PARTICIPANT);
-    }
-
-    private List<User> findManagers(Project project) {
-        return participantRepository.findParticipantsByRole(project, ProjectParticipant.Role.MANAGER);
     }
 
 
