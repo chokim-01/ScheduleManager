@@ -86,8 +86,8 @@ export default {
       projects_done: [
         {
           id: 1,
-          todo: 6,
-          title: "title1",
+          todo: 0,
+          title: "done title2",
           content: "content1",
           progress: 5,
           finishDate: "2022-08-10"
@@ -95,7 +95,7 @@ export default {
         {
           id: 2,
           todo: 0,
-          title: "title2",
+          title: "done title2",
           content: "content2",
           progress: 40,
           finishDate: "2022-08-01"
@@ -186,6 +186,7 @@ export default {
     margin: 50px auto;
     .b-card {
       max-width: 50%;
+      position: inherit;
     }
   }
 

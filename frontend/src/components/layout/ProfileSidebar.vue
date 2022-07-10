@@ -40,7 +40,8 @@ const ToggleMenu = () => {
 <style lang="scss" scoped>
 
 aside {
-
+  top: 55px;
+  position: fixed;
   float: left;
   display: flex;
   flex-direction: column;
@@ -48,10 +49,9 @@ aside {
   min-height: 100vh;
   overflow: hidden;
   padding: 1rem;
-
   background-color: var(--dark);
   color: var(--light);
-
+  padding-bottom: 50%;
   transition: 0.2s ease-out;
 
   button {

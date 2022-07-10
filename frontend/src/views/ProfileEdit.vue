@@ -1,7 +1,7 @@
 <template>
 <div>
-
   <div id="edit">
+    <h1 style="text-align: center;">Profile Edit</h1>
     <b-form @submit="onSubmit" @reset="onReset">
       <div id="image-group">
         <b-img :src=form.image_src rounded="circle" />
@@ -115,8 +115,8 @@ export default {
   display: table;
   margin-left: auto;
   margin-right: auto;
-  margin: 100px auto;
-  width:500px;
+  margin: 8% auto;
+  width:40%;
 
   #image-group {
     text-align: center;
