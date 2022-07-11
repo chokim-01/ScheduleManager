@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <label>Email</label>
-    <input type="email" class="form-control form-control-lg"/>
-    <button type="submit">Send Email</button>
-  </div>
+<div>
+  <label>Email</label>
+  <input type="email" class="form-control form-control-lg" />
+  <button type="submit">Send Email</button>
+</div>
 </template>
 
 <script>
