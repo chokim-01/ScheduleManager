@@ -1,9 +1,13 @@
 package com.web.backend.user;
 
 import com.web.backend.logger.Trace;
+import com.web.backend.notification.event.UserCreatedEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,11 +22,15 @@ import javax.validation.Valid;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+
 public class UserService implements UserDetailsService {
-    private final MailSender mailSender;
+
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final ProfilePictureService pictureService;
+
+    private final ApplicationEventPublisher publisher;
+
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
@@ -38,15 +46,11 @@ public class UserService implements UserDetailsService {
                 .email(request.getEmail())
                 .nickname(request.getNickname())
                 .encryptedPassword(passwordEncoder.encode(request.getPlainPassword())).build();
+        User savedUser = userRepository.save(user);
 
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setSubject("회원 가입 인증");
-        message.setText("/check-email-auth/"+ user.getAuthenticationKey());
-        message.setTo(request.getEmail());
+        publisher.publishEvent(new UserCreatedEvent(savedUser));
 
-        mailSender.send(message);
-
-        return userRepository.save(user);
+        return savedUser;
     }
 
 
