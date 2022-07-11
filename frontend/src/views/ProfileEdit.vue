@@ -1,47 +1,43 @@
 <template>
-<div>
-  <div id="edit">
-    <h1 style="text-align: center;">Profile Edit</h1>
-    <b-form @submit="onSubmit" @reset="onReset">
-      <div id="image-group">
-        <b-img :src=form.image_src rounded="circle" />
-        <hr />
-        </hr />
-        <b-form-group label="Edit Profile Image">
-          <ImageUpload :image="form.image" @change="changed" />
-        </b-form-group>
-      </div>
+<div id="edit">
+  <h1 style="text-align: center;">Profile Edit</h1>
+  <b-form @submit="onSubmit" @reset="onReset">
+    <div id="image-group">
+      <b-img :src=form.image_src rounded="circle" />
       <hr />
-      <b-form-group label="ID">
-        <b-form-input readonly id="input-group" v-model="form.id" required></b-form-input>
+      </hr />
+      <b-form-group label="Edit Profile Image">
+        <ImageUpload :image="form.image" @change="changed" />
       </b-form-group>
-      <hr />
-      <b-form-group label="Email">
-        <b-form-input id="input-group" v-model="form.email" type="email" required></b-form-input>
-        <b-button class="button-1" @click="emailValidateCheck">validate check</b-button>
-      </b-form-group>
-      <b-alert :show="validate.emailSuccess" variant="success">U can use this email</b-alert>
-      <b-alert :show="validate.emailFail" variant="warning">Email already exists</b-alert>
-      <hr />
-      <b-form-group label="NickName *">
-        <b-form-input id="input-group" v-model="form.name" required></b-form-input>
-        <b-button class="button-1" @click="nameValidateCheck">validate check</b-button>
-      </b-form-group>
-      <b-alert :show="validate.nicknameSuccess" variant="success" >U can use this name</b-alert>
-      <b-alert :show="validate.nicknameFail" variant="warning" >Name already exists</b-alert>
-      <hr />
-        <b-form-group label="Password *">
-          <b-form-input id="input-group" v-model="form.password" type="password" placeholder="Enter password" required></b-form-input>
-        </b-form-group>
+    </div>
+    <hr />
+    <b-form-group label="ID">
+      <b-form-input readonly id="input-group" v-model="form.id" required></b-form-input>
+    </b-form-group>
+    <hr />
+    <b-form-group label="Email">
+      <b-form-input id="input-group" v-model="form.email" type="email" required></b-form-input>
+      <b-button class="button-1" @click="emailValidateCheck">validate check</b-button>
+    </b-form-group>
+    <b-alert :show="validate.emailSuccess" variant="success">U can use this email</b-alert>
+    <b-alert :show="validate.emailFail" variant="warning">Email already exists</b-alert>
+    <hr />
+    <b-form-group label="NickName *">
+      <b-form-input id="input-group" v-model="form.name" required></b-form-input>
+      <b-button class="button-1" @click="nameValidateCheck">validate check</b-button>
+    </b-form-group>
+    <b-alert :show="validate.nicknameSuccess" variant="success">U can use this name</b-alert>
+    <b-alert :show="validate.nicknameFail" variant="warning">Name already exists</b-alert>
+    <hr />
+    <b-form-group label="Password *">
+      <b-form-input id="input-group" v-model="form.password" type="password" placeholder="Enter password" required></b-form-input>
+    </b-form-group>
 
-        <div>
-          <b-button class="button-2" type="reset" variant="danger">Reset</b-button>
-          <b-button class="button-2" type="submit" variant="primary">Edit</b-button>
-        </div>
-    </b-form>
-
-  </div>
-
+    <div>
+      <b-button class="button-2" type="reset" variant="danger">Reset</b-button>
+      <b-button class="button-2" type="submit" variant="primary">Edit</b-button>
+    </div>
+  </b-form>
 </div>
 </template>
 
@@ -113,8 +109,6 @@ export default {
 <style lang="scss">
 #edit {
   display: table;
-  margin-left: auto;
-  margin-right: auto;
   margin: 8% auto;
   width:40%;
 
@@ -123,7 +117,7 @@ export default {
   }
   #input-group {
     display: inline;
-    width:300px;
+    width:60%;
   }
   img {
     width: 10rem;

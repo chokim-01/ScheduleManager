@@ -1,11 +1,11 @@
 <template>
-  <div id="imgUpload">
-    <form method="post" enctype="multipart/form-data">
+<div id="imgUpload">
+  <form method="post" enctype="multipart/form-data">
 
-      <input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*">
-    </form>
-    <img :src="image_view" alt="">
-  </div>
+    <input ref="image" @change="uploadImg()" type="file" id="chooseFile" name="chooseFile" accept="image/*">
+  </form>
+  <img :src="image_view" alt="">
+</div>
 </template>
 
 <script>
@@ -29,11 +29,10 @@ export default {
 
 <style lang="scss" scoped>
 #imgUpload {
-
-  img {
-    width: 15rem;
-    height: auto;
-  }
+    img {
+        width: 15rem;
+        height: auto;
+    }
 
 }
 </style>

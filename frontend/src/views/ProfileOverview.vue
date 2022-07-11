@@ -1,32 +1,27 @@
 <template>
-<div>
-  <div id="overview">
-    <h1 style="text-align: center;">Overview</h1>
-    <div class="search-section">
-      <b-form-select v-model="selected" :options="options" v-on:change="selectChanged"></b-form-select>
-    </div>
-      <h3>Projects</h3>
-    <div class="project-section">
-
-      <b-card-group class="b-card-group" deck deck v-for="projects in formatProjects">
-
-        <b-card class="b-card" :title="project.title" header-tag="header" footer-tag="footer" v-for="project in projects">
-          <template #header>
-            <h6 class="mb-0">u must finish {{project.todo}} todo</h6>
-          </template>
-          <b-card-text>{{project.content}}</b-card-text>
-          <b-card-text style="float:right">{{project.finishDate}}</b-card-text>
-          <template #footer>
-            <em>
-              <b-progress :value="project.progress" max=100 show-progress animated></b-progress>
-            </em>
-          </template>
-        </b-card>
-      </b-card-group>
-    </div>
-    <hr/>
-
+<div id="overview">
+  <h1 style="text-align: center;">Overview</h1>
+  <div class="search-section">
+    <b-form-select v-model="selected" :options="options" v-on:change="selectChanged"></b-form-select>
   </div>
+  <h3>Projects</h3>
+  <div class="project-section">
+    <b-card-group class="b-card-group" deck v-for="projects in formatProjects">
+      <b-card class="b-card" :title="project.title" header-tag="header" footer-tag="footer" v-for="project in projects">
+        <template #header>
+          <h6 class="mb-0">u must finish {{project.todo}} todo</h6>
+        </template>
+        <b-card-text>{{project.content}}</b-card-text>
+        <b-card-text style="float:right">{{project.finishDate}}</b-card-text>
+        <template #footer>
+          <em>
+            <b-progress :value="project.progress" max=100 show-progress animated></b-progress>
+          </em>
+        </template>
+      </b-card>
+    </b-card-group>
+  </div>
+  <hr />
 </div>
 </template>
 
@@ -168,10 +163,8 @@ export default {
 <style lang="scss" scoped>
 #overview {
   display: table;
-  margin-left: auto;
-  margin-right: auto;
   margin: 8% auto;
-  width:40%;
+  width:50%;
 
   .project-section {
     margin-top:5%;

@@ -1,33 +1,20 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
-import Home from "../views/Home.vue"
-import forgotPasswd from "../views/ForgotPasswd.vue"
-import profileOverview from "../views/ProfileOverview.vue"
-import profileEdit from "../views/ProfileEdit.vue"
-import profileSidebar from "@/components/layout/ProfileSidebar";
-
+import HomePage from "../views/Home.vue"
+import ForgotPasswd from "../views/ForgotPasswd.vue"
+import ProfileOverview from "../views/ProfileOverview.vue"
+import ProfileEdit from "../views/ProfileEdit.vue"
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
-  mode: "history",
-  routes: [{
-      path: "/",
-      component: Home
-    },
-    {
-      path: "/forgotPasswd",
-      component: forgotPasswd
-    },
-    {
-      path: '/profile/overview',
-      component: profileOverview
-    },
-    {
-      path: '/profile/edit',
-      component: profileEdit
-    }
-  ]
+    mode: "history",
+    routes: [
+        {path: "/", component: HomePage},
+        {path: "/forgotPasswd", component: ForgotPasswd},
+        {path: '/profile/overview', component: ProfileOverview},
+        {path: '/profile/edit', component: ProfileEdit}
+    ]
 })
 
 export default router;

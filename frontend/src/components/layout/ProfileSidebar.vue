@@ -1,5 +1,6 @@
 <template>
-  <aside :class="`${!is_expanded ? 'is-expanded':''}`">
+<div id="sidebar">
+  <aside :class="`${!is_expanded ? 'is-expanded':''}`" v-if="$route.path !== '/'">
     <div class="menu-toggle-wrap">
       <button class="menu-toggle" @click="ToggleMenu">
         <b-icon class="arrow-icon" icon="chevron-double-right"></b-icon>
@@ -17,8 +18,8 @@
         <span class="text">Edit</span>
       </router-link>
     </div>
-
   </aside>
+</div>
 </template>
 
 <script>
@@ -27,146 +28,150 @@ export default {
 }
 </script>
 <script setup>
-import {ref} from 'vue'
+import {
+  ref
+} from 'vue'
 
 const is_expanded = ref(false)
 
 const ToggleMenu = () => {
   is_expanded.value = !is_expanded.value
 }
-
 </script>
 
 <style lang="scss" scoped>
-
 aside {
-  top: 55px;
-  position: fixed;
-  float: left;
-  display: flex;
-  flex-direction: column;
-  width: calc(2rem + 32px);
-  min-height: 100vh;
-  overflow: hidden;
-  padding: 1rem;
-  background-color: var(--dark);
-  color: var(--light);
-  padding-bottom: 50%;
-  transition: 0.2s ease-out;
-
-  button {
-    cursor: pointer;
-    appearance: none;
-    border: none;
-    outline: none;
-    background: none;
-    color: var(--light);
-  }
-
-  .menu-toggle-wrap {
+    top: 55px;
+    position: fixed;
+    float: left;
     display: flex;
-    justify-content: flex-end;
-    margin-bottom: 1rem;
-
-    position: relative;
-    top: 0;
+    flex-direction: column;
+    width: calc(2rem + 32px);
+    min-height: 100vh;
+    overflow: hidden;
+    padding: 1rem;
+    background-color: var(--dark);
+    color: var(--light);
+    padding-bottom: 50%;
     transition: 0.2s ease-out;
 
-    .menu-toggle {
-      transition: 0.2s ease-out;
-
-      .arrow-icon {
-        font-size: 1rem;
+    button {
+        cursor: pointer;
+        appearance: none;
+        border: none;
+        outline: none;
+        background: none;
         color: var(--light);
-      }
-
-      &:hover {
-        .arrow-icon {
-          color: var(--primary);
-        }
-      }
     }
-  }
-
-  h3, .button .text {
-    opacity: 0;
-    transition: 0.3s ease-out;
-  }
-
-  h3 {
-    color: var(--grey);
-    font-size: 0.875rem;
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-  }
-
-  .menu {
-    margin: 0 -1rem;
-
-    .button {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-
-      padding: 0.5rem 1rem;
-      transition: 0.2s ease-out;
-
-      .icons {
-        font-size: 2rem;
-        color: var(--light);
-        margin-right: 1rem;
-        transition: 0.2s ease-out;
-      }
-
-      .text {
-        color: var(--light);
-        transition: 0.2s ease-out;
-      }
-
-      &:hover, &.router-link-exact-active {
-        background-color: var(--dark-alt);
-
-        .icons, .text {
-          color: var(--primary);
-        }
-      }
-
-      &.router-link-exact-active {
-        background-color: var(--dark-alt);
-        border-right: 5px solid var(--primary);
-
-        .material-icons, .text {
-          color: var(--primary);
-        }
-      }
-    }
-  }
-
-  &.is-expanded {
-    width: var(--sidebar-width);
 
     .menu-toggle-wrap {
-      .menu-toggle {
-        transform: rotate(-180deg);
-      }
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 1rem;
+
+        position: relative;
+        top: 0;
+        transition: 0.2s ease-out;
+
+        .menu-toggle {
+            transition: 0.2s ease-out;
+
+            .arrow-icon {
+                font-size: 1rem;
+                color: var(--light);
+            }
+
+            &:hover {
+                .arrow-icon {
+                    color: var(--primary);
+                }
+            }
+        }
     }
 
-    h3, .button .text {
-      opacity: 1;
+    .button .text,
+    h3 {
+        opacity: 0;
+        transition: 0.3s ease-out;
     }
 
-    .button {
-      .icons {
-        margin-right: 1rem;
-      }
+    h3 {
+        color: var(--grey);
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
     }
-  }
 
+    .menu {
+        margin: 0 -1rem;
 
-  @media (max-width: 768px) {
-    position: fixed;
-    z-index: 99;
+        .button {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
 
-  }
+            padding: 0.5rem 1rem;
+            transition: 0.2s ease-out;
+
+            .icons {
+                font-size: 2rem;
+                color: var(--light);
+                margin-right: 1rem;
+                transition: 0.2s ease-out;
+            }
+
+            .text {
+                color: var(--light);
+                transition: 0.2s ease-out;
+            }
+
+            &.router-link-exact-active,
+            &:hover {
+                background-color: var(--dark-alt);
+
+                .icons,
+                .text {
+                    color: var(--primary);
+                }
+            }
+
+            &.router-link-exact-active {
+                background-color: var(--dark-alt);
+                border-right: 5px solid var(--primary);
+
+                .material-icons,
+                .text {
+                    color: var(--primary);
+                }
+            }
+        }
+    }
+
+    &.is-expanded {
+        width: var(--sidebar-width);
+
+        .menu-toggle-wrap {
+            .menu-toggle {
+                transform: rotate(-180deg);
+            }
+        }
+
+        .button .text,
+        h3 {
+            opacity: 1;
+        }
+
+        .button {
+            .icons {
+                margin-right: 1rem;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        position: fixed;
+        z-index: 99;
+
+    }
 }
 </style>
