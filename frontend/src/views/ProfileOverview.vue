@@ -6,8 +6,8 @@
   </div>
   <h3>Projects</h3>
   <div class="project-section">
-    <b-card-group class="b-card-group" deck v-for="projects in formatProjects">
-      <b-card class="b-card" :title="project.title" header-tag="header" footer-tag="footer" v-for="project in projects">
+    <b-card-group class="b-card-group" :key="projects.id" deck v-for="projects in formatProjects">
+      <b-card class="b-card" :title="project.title" header-tag="header" footer-tag="footer" :key="project.id" v-for="project in projects">
         <template #header>
           <h6 class="mb-0">u must finish {{project.todo}} todo</h6>
         </template>
