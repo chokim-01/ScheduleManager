@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.mail.MailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -21,7 +22,8 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class UserServiceTest {
     @Mock
-    MailSender mailSender;
+    ApplicationEventPublisher eventPublisher;
+
     @Mock
     UserRepository userRepository;
     @Spy
