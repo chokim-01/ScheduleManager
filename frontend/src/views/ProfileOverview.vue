@@ -21,8 +21,11 @@
       </b-card>
     </b-card-group>
   </div>
+  <h3 style="margin-top:5%;">Done calendar</h3>
   <hr />
-  <VuejsHeatMap/>
+  <div class = "calendar-section">
+    <VuejsHeatMap :entries="entries" max="5"/>
+  </div>
 </div>
 </template>
 
@@ -143,7 +146,18 @@ export default {
           progress: 0,
           finishDate: "2022-07-14"
         }
-      ]
+      ],
+      message:"message",
+      entries:[
+        {
+          "counting": 2,
+          "created_at":"2022-07-01",
+        },
+        {
+          "counting": 10,
+          "created_at": "2022-06-05"
+        }
+      ],
     }
   },
   computed: {
@@ -166,7 +180,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 #overview {
   display: table;
   margin: 8% auto;
@@ -188,9 +202,12 @@ export default {
       position: inherit;
     }
   }
-
+  .calendar-section {
+    border: 2px solid var(--grey);
+    border-radius: 10px;
+  }
+  .calendar-heatmap {
+    overflow:inherit  !important;
+  }
 }
-
-
-
 </style>
