@@ -22,12 +22,18 @@
     </b-card-group>
   </div>
   <hr />
+  <VuejsHeatMap/>
 </div>
 </template>
 
 <script>
+import VuejsHeatMap from 'vuejs-heatmap'
+
 export default {
   name: "ProfileOverview",
+  components: {
+    VuejsHeatMap
+  },
 
   data() {
     return {
