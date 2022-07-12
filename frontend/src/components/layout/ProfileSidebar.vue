@@ -41,6 +41,7 @@ const ToggleMenu = () => {
 
 <style lang="scss" scoped>
 aside {
+    z-index: 9999;
     top: 55px;
     position: fixed;
     float: left;
