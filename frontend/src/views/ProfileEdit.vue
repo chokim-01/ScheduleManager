@@ -106,11 +106,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #edit {
   display: table;
-  margin: 8% auto;
-  width:40%;
+  margin-top: 8%;
+  transform: translateX(50%);
+  width: 40%;
 
   #image-group {
     text-align: center;

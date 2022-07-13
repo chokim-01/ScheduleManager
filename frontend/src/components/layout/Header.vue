@@ -63,6 +63,7 @@ export default {
 
 <style>
 #header {
+  z-index: 9999;
   top:0px;
   width:100%;
   position: fixed;
