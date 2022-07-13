@@ -180,10 +180,11 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 #overview {
   display: table;
-  margin: 8% auto;
+  margin-top: 8%;
+  transform: translateX(50%);
   width:50%;
 
   .project-section {
