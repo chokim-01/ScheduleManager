@@ -13,6 +13,12 @@
         <span class="text">Info</span>
       </router-link>
     </div>
+    <div class="menu">
+      <router-link class="button bottom" to="/">
+        <b-icon class="icons" icon="box-arrow-right"></b-icon>
+        <span class="text">LogOut</span>
+      </router-link>
+    </div>
   </aside>
 </div>
 </template>
@@ -39,6 +45,11 @@ aside {
     padding-bottom: 50%;
     transition: 0.2s ease-out;
 
+    .bottom {
+      position: fixed;
+      bottom:3%;
+      width: var(--sidebar-width);
+    }
     .button .text,
     h3 {
         opacity: 1;
@@ -47,6 +58,9 @@ aside {
     .button {
         .icons {
             margin-right: 1rem;
+        }
+        .logout {
+
         }
     }
 
