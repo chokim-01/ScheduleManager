@@ -2,7 +2,7 @@
 <div id="overview">
   <h1 style="text-align: center;">Overview</h1>
   <div class="search-section">
-    <b-form-select v-model="selected" :options="options"></b-form-select>
+    <b-form-select v-model="selected" :options="options" :openFlag="openFlag"></b-form-select>
   </div>
   <h3>Projects</h3>
   <ProjectList :countOfCard="countOfCard" :selected="selected"/>
@@ -29,6 +29,7 @@ export default {
     return {
       selected: 'b',
       countOfCard: 2,
+      openFlag: false,
       options: [
         {value: 'b', text : 'Proceeding projects'},
         {value: 'c', text : 'Done projects'},
@@ -48,13 +49,12 @@ export default {
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
 #overview {
   display: table;
   margin-top: 8%;
   transform: translateX(50%);
-  width:50%;
-
+  width: 50%;
   .search-section {
     float: right;
   }

@@ -1,26 +1,33 @@
 <template>
-  <div class="project-section">
-    <b-card-group class="b-card-group" :key="projects.id" deck v-for="projects in formatProjects">
-      <b-card class="b-card" :title="project.title" header-tag="header" footer-tag="footer" :key="project.id" v-for="project in projects">
-        <template #header>
-          <h6 class="mb-0">u must finish {{project.todo}} todo</h6>
-        </template>
-        <b-card-text>{{project.content}}</b-card-text>
-        <b-card-text style="float:right">{{project.finishDate}}</b-card-text>
-        <template #footer>
-          <em>
-            <b-progress :value="project.progress" max=100 show-progress animated></b-progress>
-          </em>
-        </template>
-      </b-card>
-    </b-card-group>
-  </div>
+<div class="project-section">
+  <b-card-group class="b-card-group" deck v-for="(projects,i) in formatProjects">
+    <b-card @click="choiceCard($event,i,j)" :title="project.title" header-tag="header" footer-tag="footer" v-for="(project,j) in projects">
+      <template #header>
+        <h6 class="mb-0">u must finish {{project.todo}} todo</h6>
+      </template>
+      <b-card-text>{{project.content}}</b-card-text>
+      <b-card-text style="float:right">{{project.finishDate}}</b-card-text>
+      <template #footer>
+        <em>
+          <b-progress :value="project.progress" max=100 show-progress animated></b-progress>
+        </em>
+      </template>
+    </b-card>
+  </b-card-group>
+  <b-modal ref="modal-center" centered :title="project.title">
+    <p class="my-4">{{project.content}}</p>
+    <router-link :to="{ name: 'ProjectDetail', params: { project_id: this.project.id} }">
+      <b-button>Show project Details</b-button>
+      </router-link>
+  </b-modal>
+</div>
 </template>
 
 <script>
+
 export default {
   name: "ProjectList",
-  props: ['countOfCard','selected'],
+  props: ['countOfCard','selected','openFlag'],
   computed: {
     formatProjects() {
       return this.projects.reduce((c,n,i) => {
@@ -42,8 +49,20 @@ export default {
   mounted() {
     this.projects = [...this.projects_proceeding];
   },
+  methods: {
+    choiceCard(ev,k,l) {
+      const key = k * this.countOfCard + l;
+      this.project = this.projects[key];
+      if(this.openFlag)
+        this.$refs['modal-center'].show();
+      else
+        this.$router.push({ name: 'ProjectDetail', params: {project_id: this.project.id} })
+
+    }
+  },
   data() {
     return {
+      project:{},
       projects: [],
       projects_proceeding: [
         {
