@@ -1,20 +1,20 @@
 <template>
 <div id="app">
   <Header />
-  <ProfileSidebar />
+  <Sidebar />
   <router-view></router-view>
 </div>
 </template>
 
 <script>
 import Header from './components/layout/Header.vue'
-import ProfileSidebar from './components/layout/ProfileSidebar.vue'
+import Sidebar from './components/layout/Sidebar.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    ProfileSidebar
+    Sidebar
   }
 }
 </script>
