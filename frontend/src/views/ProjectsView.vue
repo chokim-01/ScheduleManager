@@ -1,6 +1,6 @@
 <template>
 <div id="projects-view">
-  <ProjectList :selected="selected" :countOfCard="countOfCard" />
+  <ProjectList :selected="selected" :countOfCard="countOfCard" :openFlag="openFlag"/>
 </div>
 </template>
 <script>
@@ -14,7 +14,8 @@ export default {
   data() {
     return {
       selected: 'a',
-      countOfCard: 1
+      countOfCard: 1,
+      openFlag:true
     }
   }
 }
