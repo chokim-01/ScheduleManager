@@ -110,8 +110,9 @@ export default {
 #edit {
   display: table;
   margin-top: 8%;
+  margin-left: calc(10% - 75px);
   transform: translateX(50%);
-  width: 40%;
+  width: 50%;
 
   #image-group {
     text-align: center;

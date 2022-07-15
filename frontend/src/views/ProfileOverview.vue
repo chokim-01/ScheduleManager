@@ -53,6 +53,7 @@ export default {
 #overview {
   display: table;
   margin-top: 8%;
+  margin-left: calc(10% - 150px);
   transform: translateX(50%);
   width: 50%;
   .search-section {
@@ -63,8 +64,10 @@ export default {
     border: 2px solid var(--grey);
     border-radius: 10px;
   }
-  .calendar-heatmap {
-    overflow:inherit  !important;
-  }
+}
+</style>
+<style>
+.calendar-heatmap {
+  overflow:inherit  !important;
 }
 </style>
