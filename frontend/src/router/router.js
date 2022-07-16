@@ -16,7 +16,7 @@ const router = new VueRouter({
         {path: "/forgotPasswd", component: ForgotPasswd},
         {path: '/profile/overview', component: ProfileOverview},
         {path: '/profile/edit', component: ProfileEdit},
-        {path: '/projects', component: ProjectsView},
+        {path: '/projects/:flag', name: 'Projects', component: ProjectsView},
         {path: '/projects/detail', name: 'ProjectDetail', component: ProjectDetail, props:true}
     ]
 })
