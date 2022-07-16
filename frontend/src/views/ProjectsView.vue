@@ -1,6 +1,9 @@
 <template>
 <div id="projects-view">
   <ProjectList :selected="selected" :countOfCard="countOfCard" :openFlag="openFlag"/>
+  <li>
+    {{$route.params.flag}}
+  </li>
 </div>
 </template>
 <script>
@@ -10,6 +13,14 @@ export default {
   name: "ProjectsView",
   components:{
     ProjectList
+  },
+  watch: {
+    '$route' (to, from) {
+      if(to.path ==='/projects/my')
+        this.openFlag=false;
+      else
+        this.openFlag=true;
+    }
   },
   data() {
     return {

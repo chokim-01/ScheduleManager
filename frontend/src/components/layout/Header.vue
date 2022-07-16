@@ -23,8 +23,8 @@
           </b-nav-item-dropdown>
 
           <!-- when receive dest, get data -->
-          <b-nav-item to="/projects">All Projects</b-nav-item>
-          <b-nav-item to="/projects">My Projects</b-nav-item>
+          <b-nav-item to="/projects/all">All Projects</b-nav-item>
+          <b-nav-item to="/projects/my">My Projects</b-nav-item>
           <b-nav-item @click="signModalView=true" v-b-modal.modal-Sign>Sign</b-nav-item>
           <SignModal v-if="signModalView" @close-modal="signModalView = false">
           </SignModal>
