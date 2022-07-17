@@ -1,20 +1,33 @@
 <template>
 <div id="app">
   <Header />
-  <ProfileSidebar />
+  <Sidebar />
   <router-view></router-view>
 </div>
 </template>
 
 <script>
 import Header from './components/layout/Header.vue'
-import ProfileSidebar from './components/layout/ProfileSidebar.vue'
+import Sidebar from './components/layout/Sidebar.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
-    ProfileSidebar
+    Sidebar
+  },
+  watch: {
+    '$route'(to, from) {
+      if(to.path.indexOf('profile') === 1)
+        this.$store.commit('setState','profile')
+      else if(to.path.indexOf('projects/my') === 1)
+        this.$store.commit('setState','projects')
+      else if(to.path.indexOf('project/') === 1)
+        this.$store.commit('setState','projectDetail')
+      else
+        this.$store.commit('setState','')
+      console.log(this.$store.getters.getMsg)
+    }
   }
 }
 </script>

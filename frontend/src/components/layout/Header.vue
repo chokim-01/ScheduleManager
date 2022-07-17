@@ -22,23 +22,14 @@
             <b-dropdown-item> item 2</b-dropdown-item>
           </b-nav-item-dropdown>
 
-          <b-nav-item href="#">All Projects</b-nav-item>
-          <b-nav-item href="#">My Schedule</b-nav-item>
+          <!-- when receive dest, get data -->
+          <b-nav-item to="/projects/all">All Projects</b-nav-item>
+          <b-nav-item to="/projects/my">My Projects</b-nav-item>
           <b-nav-item @click="signModalView=true" v-b-modal.modal-Sign>Sign</b-nav-item>
           <SignModal v-if="signModalView" @close-modal="signModalView = false">
           </SignModal>
+          <b-nav-item to="/profile/overview"> Profile </b-nav-item>
         </b-navbar-nav>
-
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
-          <template #button-content>
-            <em>~님</em>
-          </template>
-          <b-dropdown-item to="/profile/overview">
-            profile
-          </b-dropdown-item>
-          <b-dropdown-item href="#">Sign Out</b-dropdown-item>
-        </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
   </b-navbar>
@@ -63,6 +54,7 @@ export default {
 
 <style>
 #header {
+  z-index: 9999;
   top:0px;
   width:100%;
   position: fixed;
