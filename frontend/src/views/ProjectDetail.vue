@@ -2,7 +2,7 @@
 <div id="project-detail">
 
 <h1 style="text-align:center;">
-Project Id : {{this.project_id}}
+Project Id : {{id}}
 </h1>
 
 </div>
@@ -10,14 +10,13 @@ Project Id : {{this.project_id}}
 <script>
 export default {
     name:"ProjectDetail.vue",
-    props: {
-      project_id: {
-        type: Number,
-        default : 0
-      }
-    },
     mounted() {
       console.log(this.project_id)
+    },
+    data() {
+      return {
+        id: this.$route.params.id
+      }
     }
 }
 </script>

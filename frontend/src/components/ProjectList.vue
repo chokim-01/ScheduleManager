@@ -16,7 +16,7 @@
   </b-card-group>
   <b-modal ref="modal-center" centered :title="project.title">
     <p class="my-4">{{project.content}}</p>
-    <router-link :to="{ name: 'ProjectDetail', params: { project_id: this.project.id} }">
+    <router-link :to="`/project/${project.id}`">
       <b-button>Show project Details</b-button>
       </router-link>
   </b-modal>
@@ -56,7 +56,7 @@ export default {
       if(this.openFlag)
         this.$refs['modal-center'].show();
       else
-        this.$router.push({ name: 'ProjectDetail', params: {project_id: this.project.id} })
+        this.$router.push('/project/'+this.project.id)
 
     }
   },

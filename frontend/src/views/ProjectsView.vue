@@ -1,6 +1,14 @@
 <template>
 <div id="projects-view">
+<<<<<<< Updated upstream
   <ProjectList :selected="selected" :countOfCard="countOfCard" :openFlag="openFlag"/>
+=======
+  <ProjectList :selected="selected" :countOfCard="countOfCard" :openFlag="getOpenFlag"/>
+  <li>
+    {{$route.params.flag}}
+    {{this.$store.state.sidebar.message}}
+  </li>
+>>>>>>> Stashed changes
 </div>
 </template>
 <script>
@@ -11,6 +19,17 @@ export default {
   components:{
     ProjectList
   },
+<<<<<<< Updated upstream
+=======
+  computed: {
+    getOpenFlag() {
+      if(this.$store.state.sidebar.message === "projects")
+        this.openFlag = false
+
+      return this.openFlag
+    }
+  },
+>>>>>>> Stashed changes
   data() {
     return {
       selected: 'a',

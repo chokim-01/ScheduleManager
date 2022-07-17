@@ -15,6 +15,19 @@ export default {
   components: {
     Header,
     Sidebar
+  },
+  watch: {
+    '$route'(to, from) {
+      if(to.path.indexOf('profile') === 1)
+        this.$store.commit('setState','profile')
+      else if(to.path.indexOf('projects/my') === 1)
+        this.$store.commit('setState','projects')
+      else if(to.path.indexOf('project/') === 1)
+        this.$store.commit('setState','projectDetail')
+      else
+        this.$store.commit('setState','')
+      console.log(this.$store.getters.getMsg)
+    }
   }
 }
 </script>

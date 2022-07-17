@@ -28,7 +28,7 @@
           <b-nav-item @click="signModalView=true" v-b-modal.modal-Sign>Sign</b-nav-item>
           <SignModal v-if="signModalView" @close-modal="signModalView = false">
           </SignModal>
-          <b-nav-item to="/profile/overview"> ~님 </b-nav-item>
+          <b-nav-item to="/profile/overview"> Profile </b-nav-item>
         </b-navbar-nav>
       </b-navbar-nav>
     </b-collapse>

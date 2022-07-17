@@ -16,8 +16,13 @@ const router = new VueRouter({
         {path: "/forgotPasswd", component: ForgotPasswd},
         {path: '/profile/overview', component: ProfileOverview},
         {path: '/profile/edit', component: ProfileEdit},
+<<<<<<< Updated upstream
         {path: '/projects', component: ProjectsView},
         {path: '/projects/detail', name: 'ProjectDetail', component: ProjectDetail, props:true}
+=======
+        {path: '/projects/:flag', name: 'Projects', component: ProjectsView},
+        {path: '/project/:id', name: 'ProjectDetail', component: ProjectDetail}
+>>>>>>> Stashed changes
     ]
 })
 
