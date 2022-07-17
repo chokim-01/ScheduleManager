@@ -41,7 +41,6 @@ export default {
         case 'projectDetail':
           return this.projectDetail
         default:
-          console.log(123123123)
           return null
       }
     }
