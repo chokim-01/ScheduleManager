@@ -1,17 +1,15 @@
 <template>
 <div id="sidebar">
-  <aside v-if="$route.path !== '/'">
-      <h3>Menu</h3>
-      <hr/>
+  <aside v-if="getSidebarState">
+    <h3>{{getSidebarState}}</h3>
+    <hr />
     <div class="menu">
-      <router-link class="button" to="/profile/overview">
-        <b-icon class="icons" icon="inbox"></b-icon>
-        <span class="text">Overview</span>
-      </router-link>
-      <router-link class="button" to="/profile/edit">
-        <b-icon class="icons" icon="info-circle"></b-icon>
-        <span class="text">Info</span>
-      </router-link>
+      <div v-for="(content,i) in formatContents">
+        <router-link class="button" :to="content.to">
+          <b-icon class="icons" :icon="content.icon"></b-icon>
+          <span class="text">{{content.text}}</span>
+        </router-link>
+      </div>
     </div>
     <div class="menu">
       <router-link class="button bottom" to="/">
@@ -25,7 +23,94 @@
 
 <script>
 export default {
-  name: "Sidebar"
+  name: "Sidebar",
+  computed: {
+    getSidebarState() {
+      const state = this.$store.getters.getMsg
+      if(state ==="")
+        return false
+      return state
+    },
+    formatContents() {
+      const state = this.$store.getters.getMsg
+      switch(state) {
+        case 'profile':
+          return this.profile
+        case 'projects':
+          return this.projects
+        case 'projectDetail':
+          return this.projectDetail
+        default:
+          console.log(123123123)
+          return null
+      }
+    }
+  },
+  data() {
+    return {
+      menu: this.$store.getters.getMsg,
+      profile: [
+        {
+          id:1,
+          to:'/profile/overview',
+          icon:'inbox',
+          text:'Overview'
+        },
+        {
+          id:2,
+          to:'/profile/edit',
+          icon:'info-circle',
+          text:'Info'
+        }
+      ],
+      projects: [
+        {
+          id:1,
+          to:'/projects/my',
+          icon:'inbox',
+          text:'Overview'
+        },
+        {
+          id:2,
+          to:'/projects/notifications',
+          icon:'inbox',
+          text:'Notifications'
+        },
+        {
+          id:3,
+          to:'/projects/todo',
+          icon:'inbox',
+          text:'Today Todo'
+        },
+      ],
+      projectDetail: [
+        {
+          id:1,
+          to:'/project/:id/detail',
+          icon:'inbox',
+          text:'Detail'
+        },
+        {
+          id:4,
+          to:'/project/:id/todo',
+          icon:'inbox',
+          text:'Today Todo'
+        },
+        {
+          id:2,
+          to:'/project/:id/issues',
+          icon:'inbox',
+          text:'Issues'
+        },
+        {
+          id:3,
+          to:'/project/:id/management',
+          icon:'inbox',
+          text:'Management'
+        }
+      ]
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
