@@ -9,7 +9,6 @@
           <b-icon class="icons" :icon="content.icon"></b-icon>
           <span class="text">{{content.text}}</span>
         </router-link>
-        {{project_no}}
       </div>
     </div>
     <div class="menu">
