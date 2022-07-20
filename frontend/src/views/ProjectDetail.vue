@@ -10,9 +10,6 @@ Project Id : {{id}}
 <script>
 export default {
     name:"ProjectDetail.vue",
-    mounted() {
-      console.log(this.project_id)
-    },
     data() {
       return {
         id: this.$route.params.id
