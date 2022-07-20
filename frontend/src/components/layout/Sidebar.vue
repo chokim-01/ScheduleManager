@@ -1,14 +1,15 @@
 <template>
 <div id="sidebar">
   <aside v-if="getSidebarState">
-    <h3>{{getSidebarState}}</h3>
+    <h3>{{title}}</h3>
     <hr />
     <div class="menu">
-      <div v-for="(content,i) in formatContents">
+      <div v-for="(content,i) in menu">
         <router-link class="button" :to="content.to">
           <b-icon class="icons" :icon="content.icon"></b-icon>
           <span class="text">{{content.text}}</span>
         </router-link>
+        {{project_no}}
       </div>
     </div>
     <div class="menu">
@@ -26,86 +27,106 @@ export default {
   name: "Sidebar",
   computed: {
     getSidebarState() {
-      const state = this.$store.getters.getMsg
-      if(state ==="")
-        return false
-      return state
-    },
-    formatContents() {
-      const state = this.$store.getters.getMsg
-      switch(state) {
+      const state = this.$route.path.split("/")
+      switch (state[1]) {
+        case '':
+          return false
         case 'profile':
-          return this.profile
+          this.menu = [...this.profile]
+          this.title = 'My profile'
+          console.log("to profile")
+          break
+        case 'project':
+          if(state[2] === 'undefined') {
+            console.log("here")
+            break
+          }
+          this.projectDetail.forEach( (value, index, array) => {
+            console.log(value.to)
+            const uri = '/project/'+state[2]
+            if(value.to < 10) {
+              this.projectDetail[index].to = uri +value.to
+            } else {
+              var lastIndex = value.to.lastIndexOf('/')
+              this.projectDetail[index].to = uri + value.to.substring(lastIndex,value.to.length)
+            }
+          })
+          this.menu = [...this.projectDetail]
+          this.title = 'Project no : ' + state[2]
+          console.log("to Project")
+          break
         case 'projects':
-          return this.projects
-        case 'projectDetail':
-          return this.projectDetail
+          if (state[2] === 'all')
+            return false
+          this.menu = [...this.projects]
+          this.title = 'My projects'
+          console.log("to Projects")
+          break
         default:
-          return null
+          console.log(" default")
       }
+      return state[1]
     }
   },
   data() {
     return {
-      menu: this.$store.getters.getMsg,
-      profile: [
-        {
-          id:1,
-          to:'/profile/overview',
-          icon:'inbox',
-          text:'Overview'
+      title: '',
+      menu: [],
+      profile: [{
+          id: 1,
+          to: '/profile/overview',
+          icon: 'inbox',
+          text: 'Overview'
         },
         {
-          id:2,
-          to:'/profile/edit',
-          icon:'info-circle',
-          text:'Info'
+          id: 2,
+          to: '/profile/edit',
+          icon: 'info-circle',
+          text: 'Info'
         }
       ],
-      projects: [
-        {
-          id:1,
-          to:'/projects/my',
-          icon:'inbox',
-          text:'Overview'
+      projects: [{
+          id: 1,
+          to: '/projects/my',
+          icon: 'inbox',
+          text: 'My projects'
         },
         {
-          id:2,
-          to:'/projects/notifications',
-          icon:'inbox',
-          text:'Notifications'
+          id: 2,
+          to: '/projects/notifications',
+          icon: 'inbox',
+          text: 'Notifications'
         },
         {
-          id:3,
-          to:'/projects/todo',
-          icon:'inbox',
-          text:'Today Todo'
+          id: 3,
+          to: '/projects/todo',
+          icon: 'inbox',
+          text: 'Today Todo'
         },
       ],
-      projectDetail: [
-        {
-          id:1,
-          to:'/project/:id/detail',
-          icon:'inbox',
-          text:'Detail'
+      projectDetail: [{
+          id: 1,
+          to: '/detail',
+          icon: 'inbox',
+          text: 'Detail'
         },
         {
-          id:4,
-          to:'/project/:id/todo',
-          icon:'inbox',
-          text:'Today Todo'
+          id: 2,
+          to: '/todo',
+          icon: 'inbox',
+          text: 'Today Todo'
         },
         {
-          id:2,
-          to:'/project/:id/issues',
-          icon:'inbox',
-          text:'Issues'
+          id: 3,
+          to: '/issues',
+          icon: 'inbox',
+          text: 'Issues'
         },
         {
-          id:3,
-          to:'/project/:id/management',
-          icon:'inbox',
-          text:'Management'
+          id: 4,
+          to: '/management',
+          icon: 'inbox',
+          text: 'Management'
         }
       ]
     }
@@ -117,7 +138,7 @@ aside {
     position: fixed;
     z-index: 9999;
     top: 55px;
-    left:0;
+    left: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -130,9 +151,9 @@ aside {
     transition: 0.2s ease-out;
 
     .bottom {
-      position: fixed;
-      bottom:3%;
-      width: var(--sidebar-width);
+        position: fixed;
+        bottom: 3%;
+        width: var(--sidebar-width);
     }
     .button .text,
     h3 {
@@ -144,8 +165,7 @@ aside {
             margin-right: 1rem;
         }
         .logout {
-
-        }
+            }
     }
 
     button {
@@ -210,17 +230,17 @@ aside {
     }
 
     @media (max-width: 1024px) {
-      width: calc(2rem + 32px);
-      h3 {
-        margin-left: -4px;
-      }
-      .menu {
-        transition: 0.3s ease-out;
-        .button .text {
-          opacity: 0;
+        width: calc(2rem + 32px);
+        h3 {
+            margin-left: -4px;
         }
+        .menu {
+            transition: 0.3s ease-out;
+            .button .text {
+                opacity: 0;
+            }
 
-      }
+        }
 
     }
 }

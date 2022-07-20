@@ -17,7 +17,7 @@ const router = new VueRouter({
         {path: '/profile/overview', component: ProfileOverview},
         {path: '/profile/edit', component: ProfileEdit},
         {path: '/projects/:flag', name: 'Projects', component: ProjectsView},
-        {path: '/project/:id', name: 'ProjectDetail', component: ProjectDetail}
+        {path: '/project/:id/detail', name: 'ProjectDetail', component: ProjectDetail}
     ]
 })
 
