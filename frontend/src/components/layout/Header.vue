@@ -1,44 +1,26 @@
 <template>
-<div id="header">
   <v-card class="overflow-hidden">
-      <v-app-bar
-        absolute
-        color="white"
-        elevate-on-scroll
-        scroll-target="#scrolling-techniques-7"
-      >
-        <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-app-bar color="white">
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <router-link to="/">
+        <v-toolbar-title>SManager</v-toolbar-title>
+      </router-link>
+      <v-spacer></v-spacer>
 
-        <v-toolbar-title>Title</v-toolbar-title>
-
-        <v-spacer></v-spacer>
-
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
-        </v-btn>
-
-        <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
-        </v-btn>
-      </v-app-bar>
-      <v-sheet
-        id="scrolling-techniques-7"
-        class="overflow-y-auto"
-        max-height="600"
-      >
-        <v-container style="height: 1500px;">
-        </v-container>
-      </v-sheet>
-    </v-card>
-</div>
+      <v-btn icon>
+        <v-icon>mdi-bell-badge-outline</v-icon>
+      </v-btn>
+      <v-tabs>
+        <v-tab to="/projects/all">All Projects</v-tab>
+        <v-tab to="/projects/my">My Projects</v-tab>
+        <v-tab to="/profile/overview">Profile</v-tab>
+      </v-tabs>
+    </v-app-bar>
+  </v-card>
 </template>
 
 <script>
-import SignModal from "../Sign.vue"
+import SignModal from "../modal/Sign.vue"
 
 export default {
   name: "Header",
@@ -54,4 +36,7 @@ export default {
 </script>
 
 <style>
+.v-tabs-bar {
+  float: right;
+}
 </style>

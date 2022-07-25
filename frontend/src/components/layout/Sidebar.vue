@@ -1,24 +1,49 @@
 <template>
-<div id="sidebar">
-  <aside v-if="getSidebarState">
-    <h3>{{title}}</h3>
-    <hr />
-    <div class="menu">
-      <div v-for="(content,i) in menu">
-        <router-link class="button" :to="content.to">
-          <b-icon class="icons" :icon="content.icon"></b-icon>
-          <span class="text">{{content.text}}</span>
-        </router-link>
-      </div>
+  <v-navigation-drawer id="app-drawer" app color="grey" floating persistent mobile-break-point="960" width="280" v-if="getSidebarState">
+    <div>
+      <v-layout class="fill-height" tag="v-list" column>
+        <v-list>
+          <v-list-item>
+            <v-toolbar-title>
+              <v-icon class="mr-2">{{title}}</v-icon>
+            </v-toolbar-title>
+          </v-list-item>
+          <hr class="mt-2 mb-2">
+          <v-list-item-group active-class="white--text">
+            <template v-for="menu in menus">
+              <template v-if="menu.childrens">
+                <!-- 자식 메뉴가 있는경우 -->
+                <v-list-group :prepend-icon="menu.icon" :key="menu.id">
+                  <template v-slot:activator>
+                    <v-list-item-title>{{menu.title}}</v-list-item-title>
+                  </template>
+                  <template v-for="children in menu.childrens">
+                    <v-list-item :to="children.to" :key="children.id" class="ml-2">
+                      <v-list-item-icon>
+                        <v-icon>{{children.icon}}</v-icon>
+                      </v-list-item-icon>
+                      <v-list-item-title>
+                        {{children.text}}
+                      </v-list-item-title>
+                    </v-list-item>
+                  </template>
+                </v-list-group>
+              </template>
+              <template v-else>
+                <!-- 단일 메뉴일 경우 -->
+                <v-list-item :to="menu.to" :key="menu.id">
+                  <v-list-item-icon>
+                    <v-icon>{{menu.icon}}</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>{{menu.text}}</v-list-item-title>
+                </v-list-item>
+              </template>
+            </template>
+          </v-list-item-group>
+        </v-list>
+      </v-layout>
     </div>
-    <div class="menu">
-      <router-link class="button bottom" to="/">
-        <b-icon class="icons" icon="box-arrow-right"></b-icon>
-        <span class="text">LogOut</span>
-      </router-link>
-    </div>
-  </aside>
-</div>
+  </v-navigation-drawer>
 </template>
 
 <script>
@@ -31,33 +56,33 @@ export default {
         case '':
           return false
         case 'profile':
-          this.menu = [...this.profile]
+          this.menus = [...this.profile]
           this.title = 'My profile'
           console.log("to profile")
           break
         case 'project':
-          if(state[2] === 'undefined') {
+          if (state[2] === 'undefined') {
             console.log("here")
             break
           }
-          this.projectDetail.forEach( (value, index, array) => {
+          this.projectDetail.forEach((value, index, array) => {
             console.log(value.to)
-            const uri = '/project/'+state[2]
-            if(value.to < 10) {
-              this.projectDetail[index].to = uri +value.to
+            const uri = '/project/' + state[2]
+            if (value.to < 10) {
+              this.projectDetail[index].to = uri + value.to
             } else {
               var lastIndex = value.to.lastIndexOf('/')
-              this.projectDetail[index].to = uri + value.to.substring(lastIndex,value.to.length)
+              this.projectDetail[index].to = uri + value.to.substring(lastIndex, value.to.length)
             }
           })
-          this.menu = [...this.projectDetail]
+          this.menus = [...this.projectDetail]
           this.title = 'Project no : ' + state[2]
           console.log("to Project")
           break
         case 'projects':
           if (state[2] === 'all')
             return false
-          this.menu = [...this.projects]
+          this.menus = [...this.projects]
           this.title = 'My projects'
           console.log("to Projects")
           break
@@ -70,61 +95,61 @@ export default {
   data() {
     return {
       title: '',
-      menu: [],
+      menus: [],
       profile: [{
           id: 1,
           to: '/profile/overview',
-          icon: 'inbox',
+          icon: 'mdi-inbox',
           text: 'Overview'
         },
         {
           id: 2,
           to: '/profile/edit',
-          icon: 'info-circle',
+          icon: 'mdi-account-cog',
           text: 'Info'
         }
       ],
       projects: [{
           id: 1,
           to: '/projects/my',
-          icon: 'inbox',
+          icon: 'mdi-layers-triple-outline',
           text: 'My projects'
         },
         {
           id: 2,
           to: '/projects/notifications',
-          icon: 'inbox',
+          icon: 'mdi-bell-alert-outline',
           text: 'Notifications'
         },
         {
           id: 3,
           to: '/projects/todo',
-          icon: 'inbox',
-          text: 'Today Todo'
+          icon: 'mdi-calendar-clock',
+          text: 'Today Todos'
         },
       ],
       projectDetail: [{
           id: 1,
           to: '/detail',
-          icon: 'inbox',
+          icon: 'mdi-inbox',
           text: 'Detail'
         },
         {
           id: 2,
           to: '/todo',
-          icon: 'inbox',
+          icon: 'mdi-calendar-clock',
           text: 'Today Todo'
         },
         {
           id: 3,
           to: '/issues',
-          icon: 'inbox',
+          icon: 'mdi-alarm',
           text: 'Issues'
         },
         {
           id: 4,
           to: '/management',
-          icon: 'inbox',
+          icon: 'mdi-application-edit-outline',
           text: 'Management'
         }
       ]
@@ -132,115 +157,9 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-aside {
-    position: fixed;
-    z-index: 9999;
-    top: 55px;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow: hidden;
-    padding: 1rem;
-    width: var(--sidebar-width);
-    background-color: var(--dark);
-    color: var(--light);
-    padding-bottom: 50%;
-    transition: 0.2s ease-out;
-
-    .bottom {
-        position: fixed;
-        bottom: 3%;
-        width: var(--sidebar-width);
-    }
-    .button .text,
-    h3 {
-        opacity: 1;
-    }
-
-    .button {
-        .icons {
-            margin-right: 1rem;
-        }
-        .logout {
-            }
-    }
-
-    button {
-        cursor: pointer;
-        appearance: none;
-        border: none;
-        outline: none;
-        background: none;
-        color: var(--light);
-    }
-
-    h3 {
-        color: var(--grey);
-        font-size: 0.875rem;
-        margin-bottom: 0.5rem;
-        text-transform: uppercase;
-    }
-
-    .menu {
-        margin: 0 -1rem;
-
-        .button {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-
-            padding: 0.5rem 1rem;
-            transition: 0.2s ease-out;
-
-            .icons {
-                font-size: 2rem;
-                color: var(--light);
-                margin-right: 1rem;
-                transition: 0.2s ease-out;
-            }
-
-            .text {
-                color: var(--light);
-                transition: 0.2s ease-out;
-            }
-
-            &.router-link-exact-active,
-            &:hover {
-                background-color: var(--dark-alt);
-
-                .icons,
-                .text {
-                    color: var(--primary);
-                }
-            }
-
-            &.router-link-exact-active {
-                background-color: var(--dark-alt);
-                border-right: 5px solid var(--primary);
-
-                .material-icons,
-                .text {
-                    color: var(--primary);
-                }
-            }
-        }
-    }
-
-    @media (max-width: 1024px) {
-        width: calc(2rem + 32px);
-        h3 {
-            margin-left: -4px;
-        }
-        .menu {
-            transition: 0.3s ease-out;
-            .button .text {
-                opacity: 0;
-            }
-
-        }
-
-    }
+<style>
+.v-navigation-drawer {
+  top:65px !important;
 }
+
 </style>
