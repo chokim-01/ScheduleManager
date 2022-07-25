@@ -1,38 +1,39 @@
 <template>
 <div id="header">
-  <b-navbar toggleable="lg" type="dark" variant="info">
-    <b-navbar-brand href="/">SManager</b-navbar-brand>
+  <v-card class="overflow-hidden">
+      <v-app-bar
+        absolute
+        color="white"
+        elevate-on-scroll
+        scroll-target="#scrolling-techniques-7"
+      >
+        <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <v-toolbar-title>Title</v-toolbar-title>
 
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-        <b-nav-item href="#" disabled>Admin</b-nav-item>
-      </b-navbar-nav>
-      <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-        <b-navbar-nav>
-          <!-- if cannot access -> disabled -->
+        <v-spacer></v-spacer>
 
-          <b-nav-item-dropdown right>
-            <template #button-content>
-              <b-icon icon="bell"></b-icon>
-            </template>
-            <b-dropdown-item> item 1</b-dropdown-item>
-            <b-dropdown-item> item 2</b-dropdown-item>
-          </b-nav-item-dropdown>
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
 
-          <!-- when receive dest, get data -->
-          <b-nav-item to="/projects/all">All Projects</b-nav-item>
-          <b-nav-item to="/projects/my">My Projects</b-nav-item>
-          <b-nav-item @click="signModalView=true" v-b-modal.modal-Sign>Sign</b-nav-item>
-          <SignModal v-if="signModalView" @close-modal="signModalView = false">
-          </SignModal>
-          <b-nav-item to="/profile/overview"> Profile </b-nav-item>
-        </b-navbar-nav>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
+        <v-btn icon>
+          <v-icon>mdi-heart</v-icon>
+        </v-btn>
+
+        <v-btn icon>
+          <v-icon>mdi-dots-vertical</v-icon>
+        </v-btn>
+      </v-app-bar>
+      <v-sheet
+        id="scrolling-techniques-7"
+        class="overflow-y-auto"
+        max-height="600"
+      >
+        <v-container style="height: 1500px;">
+        </v-container>
+      </v-sheet>
+    </v-card>
 </div>
 </template>
 
@@ -53,10 +54,4 @@ export default {
 </script>
 
 <style>
-#header {
-  z-index: 9999;
-  top:0px;
-  width:100%;
-  position: fixed;
-}
 </style>
