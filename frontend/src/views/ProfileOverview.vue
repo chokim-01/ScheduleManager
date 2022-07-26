@@ -5,6 +5,9 @@
     <v-select :items="options" v-model="selected" outlined></v-select>
   </div>
   <h3>Projects</h3>
+  <div>
+
+  </div>
   <ProjectList :countOfCard="countOfCard" :selected="selected" />
   <h3 style="margin-top:5%;">Done calendar</h3>
   <hr />
@@ -54,8 +57,9 @@ export default {
 </script>
 <style lang="scss" scoped>
 #overview {
-    display: table;
     margin-top: 8%;
+    margin-left: 10%;
+    margin-right: 10%;
 
     .search-section {
         float: right;

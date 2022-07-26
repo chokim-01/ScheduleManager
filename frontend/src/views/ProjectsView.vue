@@ -45,7 +45,6 @@ export default {
 #projects-view {
   display: table;
   margin-top: 8%;
-  transform: translateX(50%);
   width:50%;
 }
 

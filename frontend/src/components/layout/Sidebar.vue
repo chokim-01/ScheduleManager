@@ -1,7 +1,7 @@
 <template>
   <v-navigation-drawer id="app-drawer" app color="grey" floating persistent mobile-break-point="960" width="280" v-if="getSidebarState">
     <div>
-      <v-layout class="fill-height" tag="v-list" column>
+      <v-layout class="fill-height" column>
         <v-list>
           <v-list-item>
             <v-toolbar-title>
@@ -161,5 +161,4 @@ export default {
 .v-navigation-drawer {
   top:65px !important;
 }
-
 </style>

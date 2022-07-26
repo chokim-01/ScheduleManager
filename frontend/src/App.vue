@@ -11,6 +11,7 @@
 <script>
 import Header from './components/layout/Header.vue'
 import Sidebar from './components/layout/Sidebar.vue'
+import vuetify from './plugins/vuetify.js'
 
 export default {
   name: 'App',
