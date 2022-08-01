@@ -31,7 +31,7 @@
   </v-row>
   <ItemAdd :visible="itemAddShow" @close="itemAddShow=false"/>
   <!-- itemId와 cId를 같이 보내고 받는다. -->
-  <ItemDelete :visible="itemDelShow" :type="type" :content="content" @close="itemDelShow=false" />
+  <ItemDelete :visible="itemDelShow" :type="type" :id="content" @close="itemDelShow=false" @delete="deleteItem"/>
 </div>
 </template>
 <script>
@@ -45,7 +45,8 @@ export default {
   },
   methods: {
     deleteCard(cId,iId) {
-      this.cards[cId].items[iId].show = false
+      this.cId = cId
+      this.iId = iId
       this.type = 'todo'
       this.content = 'todo content'
       this.itemDelShow = true
@@ -54,6 +55,11 @@ export default {
       this.type = 'project'
       this.content = 'project content'
       this.itemDelShow = true
+    },
+    deleteItem() {
+      console.log(this.cId, this.iId)
+      this.cards[this.cId].items[this.iId].show = false
+      this.itemDelShow = false
     }
   },
   data() {
@@ -63,6 +69,8 @@ export default {
       itemDelShow: false,
       type: '',
       content: '',
+      cId: 0,
+      iId: 0,
 
       cards: [{
           id: 0,
