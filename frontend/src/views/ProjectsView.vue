@@ -4,7 +4,6 @@
   <ProjectList :selected="selected" :countOfCard="countOfCard" :openFlag="getOpenFlag"/>
   <li>
     {{$route.params.flag}}
-    {{this.$store.state.sidebar.message}}
   </li>
 </div>
 </template>
