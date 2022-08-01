@@ -5,12 +5,12 @@
         Delete {{type}}
       </v-card-title>
       <v-card-text>
-        really want delete this? {{content}}
+        really want delete this? {{id}}
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="error" text>
+        <v-btn color="error" text @click="deleteItem">
           Delete
         </v-btn>
         <v-btn color="primary" text @click="show=false">
@@ -24,7 +24,7 @@
 <script>
 export default {
   name: 'ItemDelete',
-  props: ['visible','type','content'],
+  props: ['visible','type','id'],
   computed: {
     show: {
       get() {
@@ -34,6 +34,19 @@ export default {
         if (!value) {
           this.$emit('close')
         }
+      }
+    }
+  },
+  methods: {
+    deleteItem() {
+      console.log(this.type)
+      if(this.type==='project') {
+          // del pjt axios
+          this.$router.push('/')
+      }
+      else {
+        // del todo axios
+        this.$emit('delete')
       }
     }
   }
