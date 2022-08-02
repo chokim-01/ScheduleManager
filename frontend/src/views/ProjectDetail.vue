@@ -1,15 +1,23 @@
 <template>
 <div id="project-detail-section">
   <v-row>
+    <h2>
+      Project Name
+    </h2>
+  </v-row>
+  <v-row justify="end">
+    <v-btn justify="end" outlined color="indigo" @click="itemAddShow=!itemAddShow">
+      Add item
+      <v-icon>mdi-pencil</v-icon>
+    </v-btn>
+  </v-row>
+  <v-row>
     <v-col class="card-container" v-for="card in cards">
       <v-col class="cards" :style="{borderColor: card.color}">
         <v-col>
           {{card.title}}
-          <v-btn class="btn-end" outlined color="indigo" v-if="card.title!=='Done'" @click="itemAddShow=!itemAddShow">
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
         </v-col>
-        <v-col>
+        <v-col class="itemlist">
           <v-card class="items" v-for="item in card.items" v-if="item.show !== false">
             <v-card-title>
               {{item.title}}
@@ -63,7 +71,20 @@ export default {
     },
     addItem(data) {
       this.itemAddShow = false
-      console.log(data)
+      const nowDate = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
+      console.log(data[2])
+      for(let i = 0;i<data[2].length;i++) {
+        let dictObj = {}
+        dictObj['id'] = this.cards[1].items.length
+        dictObj['title'] = data[0]
+        dictObj['content'] = data[1]
+        dictObj['show'] = true
+
+        if(data[2][i] === nowDate)
+            this.cards[0].items.push(dictObj)
+        else
+            this.cards[1].items.push(dictObj)
+      }
     }
   },
   data() {
@@ -96,7 +117,7 @@ export default {
         },
         {
           id: 1,
-          title: "Todo",
+          title: "Todos",
           color: "green",
           items: [{
               id: 0,
@@ -114,7 +135,7 @@ export default {
         },
         {
           id: 2,
-          title: "Issue",
+          title: "Issues",
           color: "red",
           items: [{
               id: 0,
@@ -159,7 +180,7 @@ export default {
 <style lang="scss" scoped>
 #project-detail-section {
     display: grid;
-    margin: 8% 5% 0;
+    margin: 4% 5% 0;
     .card-container {
         display: grid;
         gap: 1em;
@@ -168,15 +189,17 @@ export default {
         padding: 1em;
         box-shadow: 0 3px 5px grey;
         border-top: 3px solid grey;
+        .itemlist {
+          height:calc(500px);
+          overflow: auto;
+        }
+        .items {
+            margin-top: 1em;
+            box-shadow: 0 3px 5px grey;
+            border-top: 3px solid grey;
+        }
     }
-    .btn-end {
-        float: right;
-    }
-    .items {
-        margin-top: 1em;
-        box-shadow: 0 3px 5px grey;
-        border-top: 3px solid grey;
-    }
+
 
 }
 </style>

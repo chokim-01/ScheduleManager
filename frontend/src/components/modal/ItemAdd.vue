@@ -15,7 +15,7 @@
           <v-col cols="12" sm="6">
             <v-menu ref="menu" v-model="menu" :close-on-content-click="false" :return-value.sync="date" transition="scale-transition" offset-y min-width="auto">
               <template v-slot:activator="{ on, attrs }">
-                <v-text-field v-model="date" label="Picker in menu" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
+                <v-text-field v-model="date" :rules="calendarRules" label="Picker in menu" prepend-icon="mdi-calendar" readonly v-bind="attrs" v-on="on"></v-text-field>
               </template>
               <v-date-picker multiple v-model="date" no-title scrollable :min="nowDate">
                 <v-spacer></v-spacer>
@@ -63,10 +63,10 @@ export default {
       set(value) {
         if (!value) {
           this.title = '',
-          this.content = '',
-          this.date= (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+            this.content = '',
+            this.date = [],
 
-          this.$emit('close')
+            this.$emit('close')
         }
       }
     }
@@ -75,8 +75,9 @@ export default {
     itemAddMethod() {
       if (this.$refs.ItemAddForm.validate()) {
         // axios
-
-        this.$emit('add',[this.title,this.content,this.date])
+        if (this.content === '')
+          this.content = this.title
+        this.$emit('add', [this.title, this.content, this.date])
       }
     }
   },
@@ -85,12 +86,15 @@ export default {
       valid: true,
       title: '',
       content: '',
-      date: [(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)],
+      date: [],
       menu: false,
 
       rules: [
         v => !!v || "Required"
       ],
+      calendarRules: [
+        v => (v && v.length >= 1) || "choice Min 1 date"
+      ]
     }
   }
 }
