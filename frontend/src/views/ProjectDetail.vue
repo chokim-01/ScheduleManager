@@ -5,7 +5,7 @@
       <v-col class="cards" :style="{borderColor: card.color}">
         <v-col>
           {{card.title}}
-          <v-btn class="btn-end" outlined color="indigo" v-if="card.title!=='Done'" @click="itemAddShow=!itemAddshow">
+          <v-btn class="btn-end" outlined color="indigo" v-if="card.title!=='Done'" @click="itemAddShow=!itemAddShow">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </v-col>
@@ -29,7 +29,7 @@
     <v-spacer></v-spacer>
     <v-btn color="error" @click="deleteProject">Delete project</v-btn>
   </v-row>
-  <ItemAdd :visible="itemAddShow" @close="itemAddShow=false"/>
+  <ItemAdd :visible="itemAddShow" @close="itemAddShow=false" @add="addItem"/>
   <!-- itemId와 cId를 같이 보내고 받는다. -->
   <ItemDelete :visible="itemDelShow" :type="type" :id="content" @close="itemDelShow=false" @delete="deleteItem"/>
 </div>
@@ -60,6 +60,10 @@ export default {
       console.log(this.cId, this.iId)
       this.cards[this.cId].items[this.iId].show = false
       this.itemDelShow = false
+    },
+    addItem(data) {
+      this.itemAddShow = false
+      console.log(data)
     }
   },
   data() {

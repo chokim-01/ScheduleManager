@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer id="app-drawer" app color="grey" floating persistent mobile-break-point="960" width="280" v-if="getSidebarState">
+  <v-navigation-drawer id="app-drawer" app color="grey" floating persistent mobile-breakpoint="960" width="280" v-if="getSidebarState">
     <div>
       <v-layout class="fill-height" column>
         <v-list>
